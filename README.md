@@ -1,3 +1,4 @@
+
 # Sistema de Detección de Ladridos
 
 Este proyecto es un sistema completo para la detección de ladridos de perros, que incluye un backend en Flask y un frontend en React.js. El sistema permite gestionar y visualizar eventos en tiempo real a través de una interfaz web moderna y personalizable. Además, está diseñado para funcionar en una Raspberry Pi, con componentes de hardware específicos para la detección de sonido y la emisión de señales ultrasónicas.
@@ -6,6 +7,7 @@ Este proyecto es un sistema completo para la detección de ladridos de perros, q
 
 El proyecto está dividido en dos partes principales: el backend desarrollado en Flask y el frontend desarrollado en React.js.
 
+```
 dog_bark_detector/
 │
 ├── backend/                  # Backend Flask
@@ -21,7 +23,7 @@ dog_bark_detector/
 │   │   └── index.html        # Archivo HTML principal
 │   ├── src/
 │   │   ├── components/       # Componentes de React
-│   │   │   ├── Dashboard.js  # Componente principal del dashboard 
+│   │   │   ├── Dashboard.js  # Componente principal del dashboard
 │   │   │   ├── Navbar.js     # Barra de navegación superior
 │   │   │   ├── Sidebar.js    # Menú lateral para navegación
 │   │   │   ├── Widget.js     # Componente base para widgets
@@ -40,8 +42,7 @@ dog_bark_detector/
 │   └── README.md             # Instrucciones de configuración y ejecución del frontend
 │
 └── README.md                 # Documentación general del proyecto
-
-
+```
 
 ## Configuración de la Raspberry Pi
 
@@ -121,6 +122,7 @@ dog_bark_detector/
 | **Protoboard**             | Para montaje temporal                            |
 | **Fuente de Alimentación** | 5V 2.5A (para Raspberry Pi)                      |
 
+
 ## Esquema de Conexiones GPIO
 
 El siguiente esquema muestra cómo conectar el buzzer y el micrófono a los pines GPIO de la Raspberry Pi:
@@ -148,3 +150,39 @@ Raspberry Pi GPIO Header (modelo 3 o superior)
 Conexiones:
 Buzzer -> GPIO18 (Pin 12) y GND (Pin 6)
 Micrófono -> VCC (Pin 1), GND (Pin 9), OUT (GPIO17, Pin 11)
+```
+
+## Montaje y Pruebas
+
+1. **Montaje Físico:**
+   - Sigue el esquema de conexiones GPIO proporcionado para conectar el buzzer y el micrófono a la Raspberry Pi usando una protoboard.
+
+2. **Prueba de Funcionamiento:**
+   - Una vez que el hardware esté conectado y el software configurado, realiza pruebas para asegurarte de que el sistema esté captando correctamente los sonidos y emitiendo las señales ultrasónicas.
+   - Accede a la interfaz web desde cualquier navegador en la misma red para monitorear y configurar el sistema:
+     ```bash
+     http://<IP-de-tu-Raspberry-Pi>:3000
+     ```
+
+## Despliegue
+
+### Backend
+
+1. Configura el backend en un servidor **Gunicorn** detrás de un proxy inverso **NGINX**.
+2. Configura SSL para asegurar la comunicación HTTPS.
+
+### Frontend
+
+1. Compila el proyecto React para producción:
+    ```bash
+    npm run build
+    ```
+2. Despliega los archivos estáticos generados en un servidor **NGINX** o **Apache**.
+
+## Contribuciones
+
+Contribuciones son bienvenidas. Por favor, abre un issue o envía un pull request en GitHub.
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT.
