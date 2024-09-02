@@ -1,4 +1,4 @@
-
+![Dog Bark Detector](assets/dog_bark_detector.png)
 # Sistema de Detección de Ladridos
 
 Este proyecto es un sistema completo para la detección de ladridos de perros, que incluye un backend en Flask y un frontend en React.js. El sistema permite gestionar y visualizar eventos en tiempo real a través de una interfaz web moderna y personalizable. Además, está diseñado para funcionar en una Raspberry Pi, con componentes de hardware específicos para la detección de sonido y la emisión de señales ultrasónicas.
