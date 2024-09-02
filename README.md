@@ -1,65 +1,150 @@
 # Sistema de Detección de Ladridos
 
-Este proyecto es un sistema completo para la detección de ladridos de perros, que incluye una interfaz web moderna y personalizable para la visualización y gestión del sistema.
+Este proyecto es un sistema completo para la detección de ladridos de perros, que incluye un backend en Flask y un frontend en React.js. El sistema permite gestionar y visualizar eventos en tiempo real a través de una interfaz web moderna y personalizable. Además, está diseñado para funcionar en una Raspberry Pi, con componentes de hardware específicos para la detección de sonido y la emisión de señales ultrasónicas.
 
-## Estructura del Proyecto
+## Estructura General del Proyecto
 
-El proyecto está dividido en dos partes principales:
+El proyecto está dividido en dos partes principales: el backend desarrollado en Flask y el frontend desarrollado en React.js.
 
-- **Backend (Flask):** Proporciona APIs para la gestión de widgets y almacenamiento de datos.
-- **Frontend (React.js):** Interfaz de usuario para la configuración y visualización de datos.
+dog_bark_detector/
+│
+├── backend/                  # Backend Flask
+│   ├── app.py                # Aplicación Flask principal
+│   ├── models.py             # Definición de modelos SQLAlchemy
+│   ├── routes.py             # Rutas y endpoints API
+│   ├── database.db           # Base de datos SQLite
+│   ├── requirements.txt      # Dependencias de Python
+│   └── README.md             # Instrucciones de configuración y ejecución del backend
+│
+├── frontend/                 # Frontend React.js
+│   ├── public/
+│   │   └── index.html        # Archivo HTML principal
+│   ├── src/
+│   │   ├── components/       # Componentes de React
+│   │   │   ├── Dashboard.js  # Componente principal del dashboard 
+│   │   │   ├── Navbar.js     # Barra de navegación superior
+│   │   │   ├── Sidebar.js    # Menú lateral para navegación
+│   │   │   ├── Widget.js     # Componente base para widgets
+│   │   │   ├── Settings.js   # Página de configuración
+│   │   │   ├── Logs.js       # Página de logs
+│   │   │   └── ChartComponent.js # Componente de gráficos (Chart.js)
+│   │   ├── services/         # Servicios para interactuar con la API
+│   │   │   └── api.js        # Funciones para llamadas HTTP
+│   │   ├── styles/           # Archivos CSS para estilos globales
+│   │   │   └── main.css
+│   │   ├── App.js            # Punto de entrada del proyecto
+│   │   ├── index.js          # Renderizado del ReactDOM
+│   │   └── routes.js         # Definición de rutas y componentes principales
+│   ├── package.json          # Dependencias de Node.js
+│   ├── package-lock.json     # Versión bloqueada de dependencias
+│   └── README.md             # Instrucciones de configuración y ejecución del frontend
+│
+└── README.md                 # Documentación general del proyecto
 
-## Configuración y Ejecución
 
-### Backend
 
-1. Navega al directorio `backend`.
-2. Instala las dependencias:
-    ```
-    pip install -r requirements.txt
-    ```
-3. Configura la base de datos:
-    ```
-    flask db init
-    flask db migrate
-    flask db upgrade
-    ```
-4. Inicia el servidor:
-    ```
-    flask run
-    ```
+## Configuración de la Raspberry Pi
 
-### Frontend
+### Requisitos Previos
 
-1. Navega al directorio `frontend`.
-2. Instala las dependencias:
-    ```
-    npm install
-    ```
-3. Inicia el servidor de desarrollo:
-    ```
-    npm start
-    ```
+- **Raspberry Pi (Modelo 3 o superior)**
+- **Sistema operativo:** Raspberry Pi OS (preferiblemente Lite)
+- **Acceso a internet:** Para instalar dependencias y clonar el repositorio.
+- **Acceso SSH:** Recomendado para configurar remotamente la Raspberry Pi.
+  
+### Pasos de Configuración
 
-## Despliegue
+1. **Actualización del Sistema:**
+   - Asegúrate de que tu Raspberry Pi esté actualizada:
+     ```bash
+     sudo apt-get update
+     sudo apt-get upgrade
+     ```
 
-### Backend
+2. **Instalación de Python y pip:**
+   - Asegúrate de tener Python y pip instalados:
+     ```bash
+     sudo apt-get install python3 python3-pip
+     ```
 
-1. Configura el backend en un servidor **Gunicorn** detrás de un proxy inverso **NGINX**.
-2. Configura SSL para asegurar la comunicación HTTPS.
+3. **Clonación del Repositorio:**
+   - Clona este repositorio en tu Raspberry Pi:
+     ```bash
+     git clone https://github.com/tuusuario/dog_bark_detector.git
+     cd dog_bark_detector
+     ```
 
-### Frontend
+4. **Configuración del Backend:**
+   - Navega al directorio `backend` y configura el entorno:
+     ```bash
+     cd backend
+     pip install -r requirements.txt
+     ```
+   - Configura la base de datos SQLite:
+     ```bash
+     flask db init
+     flask db migrate
+     flask db upgrade
+     ```
+   - Inicia el servidor Flask:
+     ```bash
+     flask run --host=0.0.0.0
+     ```
 
-1. Compila el proyecto React para producción:
-    ```
-    npm run build
-    ```
-2. Despliega los archivos estáticos generados en un servidor **NGINX** o **Apache**.
+5. **Configuración del Frontend:**
+   - Navega al directorio `frontend` y configura el entorno:
+     ```bash
+     cd ../frontend
+     npm install
+     ```
+   - Inicia el servidor de desarrollo de React:
+     ```bash
+     npm start
+     ```
 
-## Contribuciones
+## Componentes de Hardware a Montar
 
-Contribuciones son bienvenidas. Por favor, abre un issue o envía un pull request.
+- **Módulo de Micrófono USB o Analógico con ADC (KY-038 recomendado)**
+- **Transductor Ultrasónico o Buzzer Piezoeléctrico (rango de 20-40 kHz)**
+- **Cables y Conectores para las conexiones**
+- **Fuente de Alimentación 5V 2.5A para la Raspberry Pi**
+- **Protoboard y Conectores GPIO para el montaje**
 
-## Licencia
+### Lista de Componentes:
 
-Este proyecto está licenciado bajo la Licencia MIT.
+| Componente                 | Descripción                                      |
+|----------------------------|--------------------------------------------------|
+| **Raspberry Pi**           | Modelo 3 o superior                              |
+| **Módulo de Micrófono**    | USB o Analógico con ADC                          |
+| **Transductor Ultrasónico**| Buzzer Piezoeléctrico (20-40 kHz)                |
+| **Cables Jumper**          | Conexiones entre componentes y Raspberry Pi      |
+| **Protoboard**             | Para montaje temporal                            |
+| **Fuente de Alimentación** | 5V 2.5A (para Raspberry Pi)                      |
+
+## Esquema de Conexiones GPIO
+
+El siguiente esquema muestra cómo conectar el buzzer y el micrófono a los pines GPIO de la Raspberry Pi:
+
+### Conexión del Buzzer:
+
+- **Pin positivo del Buzzer** -> GPIO 18 (Pin 12 en el esquema físico)
+- **Pin negativo del Buzzer** -> GND (Pin 6 en el esquema físico)
+
+### Conexión del Micrófono (KY-038):
+
+- **VCC del Micrófono** -> 3.3V (Pin 1 en el esquema físico)
+- **GND del Micrófono** -> GND (Pin 9 en el esquema físico)
+- **OUT del Micrófono** -> GPIO 17 (Pin 11 en el esquema físico)
+
+**Esquema Físico de Conexiones:**
+
+```plaintext
+Raspberry Pi GPIO Header (modelo 3 o superior)
+------------------------------------------------
+| 3.3V | 5V  | GPIO2 | 5V  | GPIO3 | GND  | GPIO4 | GPIO14 | GND  | GPIO15 | GPIO17 | GPIO18 |
+| GND  | GPIO23 | GPIO24 | GND  | GPIO25 | GPIO8 | GPIO7 |
+------------------------------------------------
+
+Conexiones:
+Buzzer -> GPIO18 (Pin 12) y GND (Pin 6)
+Micrófono -> VCC (Pin 1), GND (Pin 9), OUT (GPIO17, Pin 11)
