@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Widget from './Widget';
 import ChartComponent from './ChartComponent';
+import { fetchWidgets } from '../services/api';
 
 const Dashboard = () => {
     const [widgets, setWidgets] = useState([]);
 
     useEffect(() => {
-        fetch('/api/widgets')
-            .then(response => response.json())
-            .then(data => setWidgets(data));
+        fetchWidgets().then(data => setWidgets(data));
     }, []);
 
     return (
